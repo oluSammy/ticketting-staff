@@ -1,0 +1,66 @@
+@import '../../sass/Abstracts/variable';
+
+.nav {
+    background-color: $color-primary-dark;
+    color: white;
+    padding: 1.1rem 7rem;
+
+    display: flex;
+    align-items: center;
+
+    @media only screen and (max-width: $bp-medium-1) {
+        padding: 1.1rem 2rem;
+    }
+
+    @media only screen and (max-width: $bp-phone) {
+        padding: 1rem 1.5rem;
+    }
+
+    &__header {
+        margin-right: auto;
+
+        display: flex;
+        align-items: center;
+
+        &-icon {
+            margin-right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            display: none;
+
+            @media only screen and (max-width: $bp-medium-1) {
+                display: block;
+            }
+        }
+    }
+
+    &__heading {
+        font-size: 2rem;
+        font-weight: 400;
+
+        @media only screen and (max-width: $bp-phone) {
+            font-size: 1.2rem;
+        }
+    }
+
+    &__list {
+        display: flex;
+        align-items: center;
+        list-style-type: none;
+    }
+
+    &__link {
+        color: $color-white;
+        margin-right: 1.8rem;
+        text-decoration: none;
+        cursor: pointer;
+
+        & span {
+            font-size: 1.7rem;
+            margin-right: .5rem;
+            @media only screen and (max-width: $bp-phone) {
+                font-size: 1.2rem;
+            }
+        }
+    }
+}

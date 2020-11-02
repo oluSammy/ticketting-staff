@@ -1,0 +1,78 @@
+@import '../../sass/Abstracts/variable';
+
+.new-task {
+    padding: 1rem;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.4rem;
+        color: $color-primary;
+    }
+
+    &__heading {
+        font-size: 2.3rem;
+    }
+
+    &__heading-icon {
+        font-size: 2rem;
+        margin-left: 2rem;
+    }
+
+    &__form {
+        width: 60%;
+
+        @media only screen and (max-width: $bp-medium) {
+            width: 80%;
+        }
+
+        @media only screen and (max-width: $bp-phone) {
+            width: 90%;
+        }
+    }
+
+    &__form-group {
+        display: grid;
+        grid-template-columns: 15rem 1fr;
+        margin-bottom: 2rem;
+
+        @media only screen and (max-width: $bp-phone) {
+            grid-template-columns: 12rem 1fr;
+        }
+    }
+
+    &__label {
+        font-size: 2rem;
+        color: $text-color;
+
+        @media only screen and (max-width: $bp-phone) {
+            font-size: 1.7rem;
+        }
+    }
+
+    &__input {
+        border: none;
+        box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+        border-radius: .4rem;
+        padding: .4rem 1rem;
+        font-size: 1.8rem;
+        color: $text-color;
+    }
+
+    &__btn {
+        color: $color-white;
+        padding: 1.2rem 5rem;
+        background-color: $color-primary-dark;
+        font-size: 2rem;
+        font-weight: 600;
+        border: 1px solid $color-white;
+        border-radius: .4rem;
+        cursor: pointer;
+        transition: all .1s;
+        margin-top: 1.4rem;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+}

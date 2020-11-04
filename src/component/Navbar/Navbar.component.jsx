@@ -4,6 +4,7 @@ import { AiOutlineLogout, AiOutlineHome } from 'react-icons/ai';
 // import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 // import { connect } from 'react-redux';
+import { auth } from './../../firebase/firebase.utils';
 
 const Navbar = () => {
     return (
@@ -18,7 +19,7 @@ const Navbar = () => {
                     <span>Home</span>
                     <AiOutlineHome className="nav__link-icon" />
                 </Link>
-                <li className="nav__link">
+                <li className="nav__link" onClick={() => auth.signOut()}>
                     <span>Sign out</span>
                     <AiOutlineLogout className="nav__link-icon" />
                 </li>

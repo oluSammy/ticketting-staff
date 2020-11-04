@@ -5,11 +5,12 @@ import { RiLockPasswordLine } from 'react-icons/ri';
 import { IoIosLogIn } from 'react-icons/io';
 import Swal from 'sweetalert2';
 import Navbar from './../../component/Navbar/Navbar.component';
+import { auth } from './../../firebase/firebase.utils';
 
 const LoginPage = () => {
 
     const [userCredentials, setUserCredentials] = useState({ email: '', password: '' });
-    // const { email, password } = userCredentials;
+    const { email, password } = userCredentials;
     const [isSigningIn, setIsSigningIn] = useState(false);
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
@@ -19,7 +20,7 @@ const LoginPage = () => {
         setUserCredentials({ email: '', password: '' });
         try {
             setIsSigningIn(true);
-            // await auth.signInWithEmailAndPassword(email, password);
+            await auth.signInWithEmailAndPassword(email, password);
             setIsSigningIn(false);
         } catch (error) {
             setIsSigningIn(false);
@@ -36,7 +37,6 @@ const LoginPage = () => {
                     text: 'Network Error',
                     footer: 'Check your network connection'
                 });
-
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -64,14 +64,14 @@ const LoginPage = () => {
                     </div>
                     <div className="login__form-group">
                         <AiOutlineMail className="login__icon" />
-                        <input type="text" className="login__form-input" name="email" id="email"
-                        placeholder="Email" onChange={handleChange} />
+                        <input type="text" className="login__form-input" name="email" id="email" required
+                        placeholder="Email" onChange={handleChange} value={email} />
                         <p className="login__errMsg">{emailError}</p>
                     </div>
                     <div className="login__form-group">
                         <RiLockPasswordLine className="login__icon" />
-                        <input type="password" className="login__form-input" name="password" id="password"
-                        placeholder="Password"  onChange={handleChange} />
+                        <input type="password" className="login__form-input" name="password" id="password" required
+                        placeholder="Password"  onChange={handleChange} value={password} />
                         <p className="login__errMsg">{passwordError}</p>
                     </div>
                     <div className="login__form-group" style={{textAlign: 'center'}} >

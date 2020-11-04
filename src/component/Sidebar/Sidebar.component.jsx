@@ -3,19 +3,21 @@ import './Sidebar.styles.scss';
 import { BiUser, BiCheckDouble } from 'react-icons/bi';
 import { AiFillHome, AiOutlineClockCircle, AiOutlineAppstoreAdd } from 'react-icons/ai';
 import { NavLink } from 'react-router-dom';
-// import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
-// import Loader from 'react-loader-spinner';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { asyncGetUser } from '../../Redux/user/user.actions';
+import Loader from 'react-loader-spinner';
+import { selectCurrentUser, selectUserDetail, selectIsGettingUserDetail } from './../../Redux/user/user.selectors';
 
 
-const Sidebar = () => {
+const Sidebar = ({ currentUser, getUserDetail, userDetail, isGettingUserDetail }) => {
 
     useEffect(() => {
         const getUser = async () => {
-
+            if(currentUser) await getUserDetail(currentUser.uid);
         }
         getUser();
-    }, []);
+    }, [getUserDetail, currentUser]);
 
     const closeSideBar = () => {
         // if(window.innerWidth < 580) {
@@ -29,9 +31,7 @@ const Sidebar = () => {
                 <div className="sidebar__user--bg">
                     <BiUser className="sidebar__user--icon"/>
                 </div>
-                <p className="sidebar__user--text sidebar__user--name">Olumorin Samuel</p>
-                <p className="sidebar__user--text sidebar__user--designation">Front End Developer</p>
-                {/* <div>
+                <div>
                     {isGettingUserDetail ?
                         <div className="sidebar__user--text" style={{marginTop: '1.3rem'}}>
                             <Loader
@@ -41,11 +41,14 @@ const Sidebar = () => {
                                 width={30}
                             />
                         </div> : userDetail &&
-                    <div>
-
-                    </div>
+                        <>
+                            <p className="sidebar__user--text sidebar__user--name">{userDetail.designation}</p>
+                            <p className="sidebar__user--text sidebar__user--designation">
+                                {userDetail.surname} {userDetail.firstName}
+                            </p>
+                        </>
                     }
-                </div> */}
+                </div>
             </div>
             <ul className="sidebar__list">
                 <NavLink to="/" className="sidebar__link" onClick={closeSideBar} >
@@ -69,15 +72,16 @@ const Sidebar = () => {
     )
 }
 
-// const mapStateToProps = createStructuredSelector({
-//     userDetail: selectUserDetail,
-//     currentUser: selectCurrentUser,
-//     isGettingUserDetail: selectIsGettingUserDetail
-// });
+const mapDispatchToProps = dispatch => ({
+    getUserDetail: uid => dispatch(asyncGetUser(uid))
+});
 
-// const mapDispatchToProps = dispatch => ({
-//     getUserDetail: id => dispatch(asyncGetUserDetail(id)),
-//     toggleSideBar: () => dispatch(toggleSidebar())
-// });
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+    userDetail: selectUserDetail,
+    isGettingUserDetail: selectIsGettingUserDetail
+})
 
-export default Sidebar;
+
+
+export default connect(mapStateToProps, mapDispatchToProps) (Sidebar);

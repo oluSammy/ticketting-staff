@@ -40,16 +40,17 @@ const NewTask = ({ userDetail, currentUser, addTask, isAddingTickets }) => {
                 <div className="new-task__form-group">
                     <label htmlFor="name" className="new-task__label">Name:</label>
                     <input type="text" className="new-task__input" id="name" name="name"
-                    readOnly value={ticket.name} required onChange={handleChange} />
+                    readOnly value={ticket.name} required />
                 </div>
                 <div className="new-task__form-group">
                     <label htmlFor="email" className="new-task__label">Email:</label>
                     <input type="email" className="new-task__input" id="email" name="email"
-                    readOnly value={ticket.email} required onChange={handleChange} />
+                    readOnly value={ticket.email} required />
                 </div>
                 <div className="new-task__form-group">
                     <label htmlFor="designation" className="new-task__label">Designation:</label>
-                    <input type="text" className="new-task__input" id="designation" name="designation" required value={ticket.designation} />
+                    <input type="text" className="new-task__input" id="designation" name="designation"
+                    readOnly required value={ticket.designation} />
                 </div>
                 <div className="new-task__form-group">
                     <label htmlFor="title" className="new-task__label">Title:</label>

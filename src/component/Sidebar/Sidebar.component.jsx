@@ -8,9 +8,10 @@ import { createStructuredSelector } from 'reselect';
 import { asyncGetUser } from '../../Redux/user/user.actions';
 import Loader from 'react-loader-spinner';
 import { selectCurrentUser, selectUserDetail, selectIsGettingUserDetail } from './../../Redux/user/user.selectors';
+import { toggleSidebar } from './../../Redux/user/user.actions';
 
 
-const Sidebar = ({ currentUser, getUserDetail, userDetail, isGettingUserDetail }) => {
+const Sidebar = ({ currentUser, getUserDetail, userDetail, isGettingUserDetail, toggleSidebar }) => {
 
     useEffect(() => {
         const getUser = async () => {
@@ -20,10 +21,34 @@ const Sidebar = ({ currentUser, getUserDetail, userDetail, isGettingUserDetail }
     }, [getUserDetail, currentUser]);
 
     const closeSideBar = () => {
-        // if(window.innerWidth < 580) {
-        //     toggleSideBar();
-        // }
+        if(window.innerWidth < 580) {
+            toggleSidebar();
+        }
     }
+
+    const sidebarLinks = [
+        {
+            link: '/',
+            icon: <AiFillHome className="sidebar__link-icon" />,
+            text: 'Home'
+        },
+        {
+            link: '/raise-ticket',
+            icon: <AiOutlineAppstoreAdd className="sidebar__link-icon" />,
+            text: 'Raise Ticket'
+        },
+        {
+            link: '/pending',
+            icon: <AiOutlineClockCircle className="sidebar__link-icon" />,
+            text: 'Pending'
+        },
+        {
+            link: '/resolved',
+            icon: <BiCheckDouble className="sidebar__link-icon" />,
+            text: 'Resolved'
+        }
+    ];
+
 
     return (
         <div className="sidebar">
@@ -51,29 +76,20 @@ const Sidebar = ({ currentUser, getUserDetail, userDetail, isGettingUserDetail }
                 </div>
             </div>
             <ul className="sidebar__list">
-                <NavLink to="/" className="sidebar__link" onClick={closeSideBar} >
-                    <AiFillHome className="sidebar__link-icon" />
-                    <span>Home</span>
-                </NavLink>
-                <NavLink to="/raise-ticket" className="sidebar__link" activeClassName="sidebar__active" onClick={closeSideBar} >
-                    <AiOutlineAppstoreAdd className="sidebar__link-icon" />
-                    <span>Raise Ticket</span>
-                </NavLink>
-                <NavLink to="/pending" className="sidebar__link" activeClassName="sidebar__active" onClick={closeSideBar} >
-                    <AiOutlineClockCircle className="sidebar__link-icon" />
-                    <span>pending</span>
-                </NavLink>
-                <NavLink to="/resolved" className="sidebar__link" activeClassName="sidebar__active" onClick={closeSideBar} >
-                    <BiCheckDouble className="sidebar__link-icon" />
-                    <span>Resolved</span>
-                </NavLink>
+                {sidebarLinks.map(link =>
+                    <NavLink to={link.link} className="sidebar__link" onClick={closeSideBar} >
+                        {link.icon}
+                        <span>{link.text}</span>
+                    </NavLink>
+                )}
             </ul>
         </div>
     )
 }
 
 const mapDispatchToProps = dispatch => ({
-    getUserDetail: uid => dispatch(asyncGetUser(uid))
+    getUserDetail: uid => dispatch(asyncGetUser(uid)),
+    toggleSidebar: () => dispatch(toggleSidebar())
 });
 
 const mapStateToProps = createStructuredSelector({

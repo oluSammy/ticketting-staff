@@ -5,6 +5,7 @@ const INIT_STATE = {
     userDetail: null,
     isGettingUser: false,
     getUserErrMsg: '',
+    sideBarOpen: false
 }
 
 const userReducer = (state=INIT_STATE, action) => {
@@ -30,6 +31,11 @@ const userReducer = (state=INIT_STATE, action) => {
                 ...state,
                 isGettingUser: false,
                 getUserErrMsg: action.payload
+            }
+        case userActionTypes.TOGGLE_SIDEBAR:
+            return {
+                ...state,
+                sideBarOpen: !state.sideBarOpen
             }
         default:
             return state;

@@ -1,5 +1,6 @@
 @import '../../sass/Abstracts/variable';
 
+
 .login {
 
     &__box {
@@ -11,6 +12,19 @@
         border-radius: 1rem;
         padding: 4rem;
         background-color: $color-white;
+
+        @media only screen and (max-width: $bp-large) {
+            width: 48vw;
+        }
+
+        @media only screen and (max-width: $bp-medium) {
+            width: 70vw;
+        }
+
+        @media only screen and (max-width: $bp-medium) {
+            width: 85vw;
+            padding: 2rem;
+        }
     }
 
     &__header {

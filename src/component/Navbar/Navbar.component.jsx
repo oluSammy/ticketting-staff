@@ -1,17 +1,25 @@
 import React from 'react';
 import './Navbar.styles.scss';
 import { AiOutlineLogout, AiOutlineHome } from 'react-icons/ai';
-// import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { auth } from './../../firebase/firebase.utils';
+import { toggleSidebar } from './../../Redux/user/user.actions';
+import { selectSidebarState } from '../../Redux/user/user.selectors';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from './../../Redux/user/user.selectors';
 
-const Navbar = () => {
+const Navbar = ({ isSidebarOpen, toggleSideBar, user  }) => {
     return (
         <div className="nav">
             <div className="nav__header">
-                {/* <AiOutlineClose className="nav__header-icon" /> */}
-                {/* <AiOutlineMenu onClick={() => toggleSidebar()} className="nav__header-icon" /> */}
+                {user &&
+                <>
+                    {isSidebarOpen ?
+                    <AiOutlineClose onClick={() => toggleSideBar()} className="nav__header-icon" /> :
+                    <AiOutlineMenu onClick={() => toggleSideBar()} className="nav__header-icon" />}
+                </>}
                 <h1 className="nav__heading">Danbo International School</h1>
             </div>
             <ul className="nav__list">
@@ -28,10 +36,13 @@ const Navbar = () => {
     )
 }
 
-// const mapStateToProps = createStructuredSelector({
-// });
+const mapStateToProps = createStructuredSelector({
+    isSidebarOpen: selectSidebarState,
+    user: selectCurrentUser
+});
 
-// const mapDispatchToProps = dispatch => ({
-// })
+const mapDispatchToProps = dispatch => ({
+    toggleSideBar: () => dispatch(toggleSidebar())
+})
 
-export default Navbar;
+export default connect(mapStateToProps, mapDispatchToProps) (Navbar);

@@ -1,6 +1,7 @@
 import { userActionTypes } from './user.types';
 import { firestore } from '../../firebase/firebase.utils';
 
+
 export const setUser = user => ({
     type: userActionTypes.SET_CURRENT_USER,
     payload: user
@@ -32,3 +33,7 @@ export const asyncGetUser = id => {
         }
     }
 }
+
+export const toggleSidebar = () => ({
+    type: userActionTypes.TOGGLE_SIDEBAR
+});

@@ -21,7 +21,6 @@ export const asyncAddTicket = ticket => {
             const { name, email, designation, title, task } = ticket;
             dispatch(addTicketStart());
             const ticketRef = firestore.collection("tickets");
-            const createdAt = FieldValue
             await ticketRef.add({
                 senderName: name,
                 senderEmail: email,
@@ -31,7 +30,7 @@ export const asyncAddTicket = ticket => {
                 task,
                 resolved: false,
                 assigned: false,
-                createdAt
+                createdAt: FieldValue
             });
             dispatch(addTicketSuccess());
             Swal.fire(

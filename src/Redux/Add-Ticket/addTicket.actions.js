@@ -30,6 +30,7 @@ export const asyncAddTicket = ticket => {
                 title,
                 task,
                 resolved: false,
+                assigned: false,
                 createdAt
             });
             dispatch(addTicketSuccess());

@@ -30,22 +30,26 @@ const Sidebar = ({ currentUser, getUserDetail, userDetail, isGettingUserDetail, 
         {
             link: '/',
             icon: <AiFillHome className="sidebar__link-icon" />,
-            text: 'Home'
+            text: 'Home',
+            NoActiveBg: false
         },
         {
             link: '/raise-ticket',
             icon: <AiOutlineAppstoreAdd className="sidebar__link-icon" />,
-            text: 'Raise Ticket'
+            text: 'Raise Ticket',
+            NoActiveBg: true
         },
         {
             link: '/pending',
             icon: <AiOutlineClockCircle className="sidebar__link-icon" />,
-            text: 'Pending'
+            text: 'Pending',
+            NoActiveBg: true
         },
         {
             link: '/resolved',
             icon: <BiCheckDouble className="sidebar__link-icon" />,
-            text: 'Resolved'
+            text: 'Resolved',
+            NoActiveBg: true
         }
     ];
 
@@ -77,7 +81,12 @@ const Sidebar = ({ currentUser, getUserDetail, userDetail, isGettingUserDetail, 
             </div>
             <ul className="sidebar__list">
                 {sidebarLinks.map(link =>
-                    <NavLink to={link.link} className="sidebar__link" onClick={closeSideBar} >
+                    link.NoActiveBg ?
+                    <NavLink key={link.link} to={link.link} className="sidebar__link" activeClassName="sidebar__active" onClick={closeSideBar} >
+                        {link.icon}
+                        <span>{link.text}</span>
+                    </NavLink> :
+                    <NavLink key={link.link} to={link.link} className="sidebar__link" onClick={closeSideBar} >
                         {link.icon}
                         <span>{link.text}</span>
                     </NavLink>

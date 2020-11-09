@@ -11,6 +11,7 @@ import { asyncGetMorePending, asyncGetPending } from './../../Redux/pending/pend
 import Loader from 'react-loader-spinner';
 import { selectIsGettingPending, selectPendingTasks, selectPendingPrevDoc }
 from './../../Redux/pending/pending.selectors';
+import EmptyTasks from './../../component/EmptyTasks/EmptyTasks.component';
 
 const Pending = ({ userDetail, getPendingTasks, isGettingUserDetail,
     isGettingPending, pendingTasks, prevDoc, getMorePendingTasks }) => {
@@ -49,10 +50,15 @@ const Pending = ({ userDetail, getPendingTasks, isGettingUserDetail,
                 </div> : pendingTasks &&
                 <div className="tickets__container">
                     {pendingTasks.map(task => <Ticket key={task.id} ticket={task} type={'pending'} />)}
-                    {prevDoc !== undefined &&
+                    {pendingTasks && pendingTasks.length >= 20 && prevDoc !== undefined &&
                     <div onClick={getMoreTasks} style={{display: 'flex', justifyContent: 'center'}} >
                         <MoreButton />
                     </div>}
+                </div>
+            }
+            {pendingTasks && !pendingTasks.length &&
+                <div className="empty-task-container">
+                    <EmptyTasks title='pending' />
                 </div>
             }
         </div>

@@ -34,12 +34,12 @@ const getMoreResolvedFailure = errMsg => ({
     payload: errMsg
 });
 
-export const asyncGetResolved = staffName => {
+export const asyncGetResolved = uid => {
     return dispatch => {
         try {
             dispatch(getResolvedStart());
             const ticketRef = firestore.collection('tickets').where('resolved', '==', true)
-            .where('senderName', '==', `${staffName}`).orderBy('completedOn', 'desc')
+            .where('senderUid', '==', `${uid}`).orderBy('completedOn', 'desc')
             .limit(20);
             ticketRef.onSnapshot(docSnapshot => {
                 const resolved = [];
@@ -54,12 +54,12 @@ export const asyncGetResolved = staffName => {
     }
 }
 
-export const asyncGetMoreResolved = (staffName, prevDoc) => {
+export const asyncGetMoreResolved = (uid, prevDoc) => {
     return dispatch => {
         try {
             dispatch(getMoreResolvedStart());
             const ticketRef = firestore.collection('tickets').where('resolved', '==', true)
-            .where('senderName', '==', `${staffName}`).orderBy('completedOn', 'desc').startAfter(prevDoc)
+            .where('senderUid', '==', `${uid}`).orderBy('completedOn', 'desc').startAfter(prevDoc)
             .limit(20);
             ticketRef.onSnapshot(docSnapshot => {
                 const resolved = [];

@@ -11,18 +11,19 @@ import { selectResolvedPreviousDoc, selectIsGettingResolved } from './../../Redu
 import Loader from 'react-loader-spinner';
 import TicketLoader from './../../component/TicketLoader/TicketLoader.component';
 import MoreButton from '../../component/MoreButton/MoreButton.component';
+import EmptyTasks from './../../component/EmptyTasks/EmptyTasks.component';
 
 const Resolved = ({ userDetail, getResolvedTasks, resolvedTasks, prevDoc,
     isGettingResolved, isGettingUserDetail, getMoreResolvedTasks }) => {
 
     useEffect(() => {
         (async () => {
-            userDetail && await getResolvedTasks(`${userDetail.firstName} ${userDetail.surname}`)
+            userDetail && await getResolvedTasks(userDetail.uid)
         })();
     }, [userDetail, getResolvedTasks]);
 
     const getMoreTasks = async () => {
-        await getMoreResolvedTasks(`${userDetail.firstName} ${userDetail.surname}`, prevDoc);
+        await getMoreResolvedTasks(userDetail.uid, prevDoc);
     }
 
     return (
@@ -52,6 +53,11 @@ const Resolved = ({ userDetail, getResolvedTasks, resolvedTasks, prevDoc,
                     <div onClick={getMoreTasks} style={{display: 'flex', justifyContent: 'center'}} >
                         <MoreButton />
                     </div>}
+                </div>
+            }
+            {resolvedTasks && !resolvedTasks.length &&
+                <div className="empty-task-container">
+                    <EmptyTasks title='resolved' />
                 </div>
             }
         </div>

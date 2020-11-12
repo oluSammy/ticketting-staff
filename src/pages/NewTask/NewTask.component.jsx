@@ -10,12 +10,12 @@ import { selectIsAddingTicket } from '../../Redux/Add-Ticket/addTicket.selectors
 
 const NewTask = ({ userDetail, currentUser, addTask, isAddingTickets }) => {
     const [ticket, setTicket] = useState({ name: '', email: currentUser ? currentUser.email : '',
-    designation: '', title: '', task: '' });
+    designation: '', title: '', task: '', uid: '' });
 
     useEffect(() => {
         userDetail &&
         setTicket(ticket => ({ ...ticket, name: `${userDetail.firstName} ${userDetail.surname}`,
-        designation: userDetail.designation }));
+        designation: userDetail.designation, uid: userDetail.uid }));
     }, [userDetail]);
 
     const handleChange = e => {
@@ -26,7 +26,6 @@ const NewTask = ({ userDetail, currentUser, addTask, isAddingTickets }) => {
     const createTask = async e => {
         e.preventDefault();
         await addTask(ticket);
-        console.log(ticket);
         setTicket({ ...ticket, title: '', task: '' });
     }
 

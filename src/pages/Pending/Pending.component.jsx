@@ -18,13 +18,13 @@ const Pending = ({ userDetail, getPendingTasks, isGettingUserDetail,
 
     useEffect(() => {
         const getTasks = async () => {
-            userDetail && await getPendingTasks(`${userDetail.firstName} ${userDetail.surname}`)
+            userDetail && await getPendingTasks(userDetail.uid)
         }
         !pendingTasks && getTasks();
     }, [userDetail, getPendingTasks, pendingTasks]);
 
     const getMoreTasks = async () => {
-        await getMorePendingTasks(`${userDetail.firstName} ${userDetail.surname}`, prevDoc);
+        await getMorePendingTasks(userDetail.uid, prevDoc);
     }
 
     return (

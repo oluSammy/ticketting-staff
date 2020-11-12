@@ -34,11 +34,11 @@ const getMorePendingFailure = errMsg => ({
     payload: errMsg
 });
 
-export const asyncGetPending = staffName => {
+export const asyncGetPending = uid => {
     return async dispatch => {
         try {
             dispatch(getPendingStart());
-            const pendingRef = firestore.collection('tickets').where('senderName', '==', `${staffName}`)
+            const pendingRef = firestore.collection('tickets').where('senderUid', '==', `${uid}`)
             .where('completed', '==', false).orderBy('createdAt', 'desc').limit(20);
             pendingRef.onSnapshot(docSnapshot => {
                 const pendingTasks = [];
@@ -53,11 +53,11 @@ export const asyncGetPending = staffName => {
     }
 }
 
-export const asyncGetMorePending = (staffName, prevDoc) => {
+export const asyncGetMorePending = (uid, prevDoc) => {
     return async dispatch => {
         try {
             dispatch(getMorePendingStart());
-            const pendingRef = firestore.collection('tickets').where('senderName', '==', `${staffName}`)
+            const pendingRef = firestore.collection('tickets').where('senderUid', '==', `${uid}`)
             .where('completed', '==', false).orderBy('createdAt', 'desc').startAfter(prevDoc).limit(20);
             pendingRef.onSnapshot(docSnapshot => {
                 const pendingTasks = [];

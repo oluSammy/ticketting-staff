@@ -6,16 +6,16 @@ import { limitSentence } from './../../utility functions/utilities';
 
 
 const Ticket = ({ ticket }) => {
-    const { createdAt, title, task, assigned, assignedTo } = ticket.data;
+    const { createdAt, title, task, assigned, assignedToName } = ticket.data;
     return (
         <Link to="/ticket/ticket" className="ticket">
             <div className="ticket__header">
-                <h4 className="ticket__status">Pending <span></span> </h4> :
+                <h4 className="ticket__status">Pending <span></span> </h4>
                 <div className="ticket__assigned-to">
                     {assigned ?
                         <>
                             <span>Assigned To &rarr; </span>
-                            <h6 className="ticket__staff-assigned">{assignedTo}</h6>
+                            <h6 className="ticket__staff-assigned">{assignedToName}</h6>
                         </> :
                         <h6 className="ticket__staff-assigned">Not Assigned Yet</h6>
                     }
